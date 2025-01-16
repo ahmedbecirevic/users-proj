@@ -37,13 +37,14 @@ const AddEditUserModal: React.FC<AddEditUserModalProps> = ({
   }, [user]);
 
   const handleSave = async () => {
-    if (firstName && lastName && email && phoneNumber) {
+    if (email && phoneNumber) {
       const userToSave = { ...user, firstName, lastName, email, phoneNumber };
-      console.log('user', user);
+      console.log('user', userToSave);
       if (isEditMode) {
-        await axiosInstance.post('users', userToSave);
+        await axiosInstance.put('users', userToSave);
       } else {
-        await axiosInstance.put(`users`, userToSave);
+        console.log('in else');
+        await axiosInstance.post('users', userToSave);
       }
 
       onSave();
@@ -77,7 +78,6 @@ const AddEditUserModal: React.FC<AddEditUserModalProps> = ({
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
           margin='normal'
-          required
         />
         <TextField
           fullWidth
@@ -85,7 +85,6 @@ const AddEditUserModal: React.FC<AddEditUserModalProps> = ({
           value={lastName}
           onChange={e => setLastName(e.target.value)}
           margin='normal'
-          required
         />
         <TextField
           fullWidth
@@ -94,6 +93,7 @@ const AddEditUserModal: React.FC<AddEditUserModalProps> = ({
           onChange={e => setEmail(e.target.value)}
           margin='normal'
           required
+          type='email'
         />
         <TextField
           fullWidth
