@@ -94,6 +94,14 @@ const CustomTable = () => {
                       >
                         Edit
                       </button>
+                      <button
+                        onClick={async () => {
+                          await axiosInstance.delete(`users/${row.id}`);
+                          await getAllUsers();
+                        }}
+                      >
+                        Delete
+                      </button>
                     </TableCell>
                   </TableRow>
                 ))}
